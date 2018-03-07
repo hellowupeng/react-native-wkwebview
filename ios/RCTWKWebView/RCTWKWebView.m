@@ -34,6 +34,7 @@
 @property (nonatomic, copy) RCTDirectEventBlock onMessage;
 @property (nonatomic, copy) RCTDirectEventBlock onScroll;
 @property (assign) BOOL sendCookies;
+@property (nonatomic, copy) RCTDirectEventBlock onNavigationTitleChange;
 
 @end
 
@@ -317,6 +318,14 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
       return;
     }
     _onProgress(@{@"progress": [change objectForKey:NSKeyValueChangeNewKey]});
+  } else if ([keyPath isEqualToString:@"title"]) {
+    if (object == _webView) {
+      if (self.onNavigationTitleChange) {
+        self.onNavigationTitleChange(@{@"title": _webView.title});
+      }
+    }
+  } else {
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
   }
 }
 

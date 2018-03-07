@@ -183,6 +183,8 @@ class WKWebView extends React.Component {
      * must be a string.
      */
     onMessage: PropTypes.func,
+
+    onNavigationTitleChange: PropTypes.func,
     /**
      * Receive scroll events from view
      */
@@ -332,6 +334,7 @@ class WKWebView extends React.Component {
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
         pagingEnabled={this.props.pagingEnabled}
         directionalLockEnabled={this.props.directionalLockEnabled}
+        onNavigationTitleChange={this._onNavigationTitleChange}
       />;
 
     return (
@@ -481,6 +484,12 @@ class WKWebView extends React.Component {
   _onScroll = (event: Event) => {
     const onScroll = this.props.onScroll;
     onScroll && onScroll(event.nativeEvent);
+  };
+
+  _onNavigationTitleChange = (event: Event) => {
+    if (this.props.onNavigationTitleChange) {
+      this.props.onNavigationTitleChange(event);
+    }
   };
 }
 
