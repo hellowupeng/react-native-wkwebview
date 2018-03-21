@@ -333,6 +333,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 - (void)dealloc
 {
   [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
+  [_webView removeObserver:self forKeyPath:@"title"];
   _webView.navigationDelegate = nil;
   _webView.UIDelegate = nil;
   _webView.scrollView.delegate = nil;
